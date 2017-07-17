@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2014 ONESTEiN BV (<http://www.onestein.eu>)
+# Copyright 2014 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, _
@@ -50,7 +50,7 @@ class AccountInvoiceSpreadLine(models.Model):
          ],
         string='Type',
         readonly=True,
-        defaults='depreciate')
+        default='depreciate')
     init_entry = fields.Boolean(
         string='Initial Balance Entry',
         help="Set this flag for entries of previous fiscal years "
@@ -75,8 +75,9 @@ class AccountInvoiceSpreadLine(models.Model):
             'date': spread_date,
             'ref': spread_line.name,
             'period_id': period_id,
-            'journal_id': invoice.journal_id.id,
-            }
+            'journal_id': spread_line.invoice_line_id.spread_journal_id.id or
+            invoice.journal_id.id,
+        }
         return move_data
 
     @api.model
@@ -102,7 +103,10 @@ class AccountInvoiceSpreadLine(models.Model):
             'journal_id': invoice_line.invoice_id.journal_id.id,
             'partner_id': invoice_line.invoice_id.partner_id.id,
             'date': spread_date,
+            'analytic_account_id': invoice_line.account_analytic_id.id,
             }
+        if 'cost_center_id' in invoice_line._fields:
+            move_line_data['cost_center_id'] = invoice_line.cost_center_id.id
         return move_line_data
 
     @api.multi

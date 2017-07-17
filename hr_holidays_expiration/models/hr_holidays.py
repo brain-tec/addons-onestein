@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2016 ONESTEiN BV (<http://www.onestein.eu>)
+# Copyright 2016 Onestein (<http://www.onestein.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging
@@ -48,8 +48,11 @@ class hr_holidays(models.Model):
             if datetime.strptime(
                     holiday.expiration_date, DEFAULT_SERVER_DATE_FORMAT) <= datetime.today():
                 holiday.expired = True
-                holiday.send_notifications(
-                    holiday_id=holiday.id, tmpl_id=holiday.expire_template_id.id)
+                if holiday.expire_template_id:
+                    holiday.send_notifications(
+                        holiday_id=holiday.id,
+                        tmpl_id=holiday.expire_template_id.id
+                    )
 
     # notification
     email_notify = fields.Boolean("Notify Expiration via Email", default=False)
