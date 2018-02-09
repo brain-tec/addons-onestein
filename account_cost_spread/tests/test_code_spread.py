@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Onestein (<http://www.onestein.eu>)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2017-2018 Onestein (<http://www.onestein.eu>)
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.addons.account.tests.account_test_classes import AccountingTestCase
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
@@ -83,7 +82,7 @@ class TestAccountCostSpread(AccountingTestCase):
         # change the state of invoice to open by clicking Validate button
         self.invoice.action_invoice_open()
         self.assertEqual(len(self.invoice_line.spread_line_ids), 12)
-        self.assertEqual(81.77, self.invoice_line.spread_line_ids[0].amount)
+        self.assertEqual(83.37, self.invoice_line.spread_line_ids[0].amount)
         self.assertEqual(83.33, self.invoice_line.spread_line_ids[1].amount)
         self.assertEqual(83.33, self.invoice_line.spread_line_ids[2].amount)
         self.assertEqual(83.33, self.invoice_line.spread_line_ids[3].amount)
@@ -94,7 +93,7 @@ class TestAccountCostSpread(AccountingTestCase):
         self.assertEqual(83.33, self.invoice_line.spread_line_ids[8].amount)
         self.assertEqual(83.33, self.invoice_line.spread_line_ids[9].amount)
         self.assertEqual(83.33, self.invoice_line.spread_line_ids[10].amount)
-        self.assertEqual(84.93, self.invoice_line.spread_line_ids[11].amount)
+        self.assertEqual(83.33, self.invoice_line.spread_line_ids[11].amount)
 
         # Cancel the account move which is in posted state
         # and verifies that it gives warning message
