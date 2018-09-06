@@ -40,9 +40,9 @@ class HrHolidaysStatus(models.Model):
     def _set_consumed_allocations(self, res):
         self.ensure_one()
         for allocation in self.holiday_ids.filtered(
-            lambda r: r.type == 'add' and r.state in [
-                'confirm', 'validate1', 'validate']).sorted(
-                key=lambda r: r.expiration_date or ''):
+            lambda r: r.type == 'add' and
+                r.state in ['confirm', 'validate1', 'validate']
+        ).sorted(key=lambda r: r.expiration_date or ''):
             self._set_data_from_consumed_allocation(allocation, res)
 
     @api.model
@@ -54,7 +54,7 @@ class HrHolidaysStatus(models.Model):
                 res[employee_id]['consumed_leaves']:
             if res[employee_id]['amount_counter'] < res[employee_id]['consumed_leaves']:
                 amount_partial_consumed = res[employee_id]['amount_counter'] + \
-                                          allocated_amount - res[employee_id]['consumed_leaves']
+                    allocated_amount - res[employee_id]['consumed_leaves']
                 res[employee_id]['amount_partial_consumed'] = amount_partial_consumed
                 res[employee_id]['allocations_partial_consumed'] += allocation
             else:
