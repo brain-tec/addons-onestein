@@ -2,23 +2,18 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    'name': 'Cost Spread',
-    'summary': 'Cost spreading over a custom period',
-    'version': '11.0.2.2.0',
+    'name': 'Cost Spread Auto Post',
+    'summary': 'Auto Post spread journal items',
+    'version': '11.0.1.1.0',
     'author': 'Onestein',
     'license': 'AGPL-3',
     'website': 'http://www.onestein.eu',
-    'images': [],
     'category': 'Accounting',
     'depends': [
-        'account',
+        'account_cost_spread',
     ],
     'data': [
-        'security/ir.model.access.csv',
         'views/account_invoice_line.xml',
-        'views/account_invoice.xml',
-        'data/spread_cron.xml',
-        'templates/assets.xml',
     ],
     'installable': True,
 }
